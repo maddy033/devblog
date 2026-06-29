@@ -1,0 +1,22 @@
+# Goal - I have to ensure the packages and dependencencies have been audited for Security Vulnerabilities
+name: Dependency Scan
+
+on:
+  workflow_call:
+
+jobs:
+  dependency-scan:
+    name: Dependency Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run OWASP Dependency-Check
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: "DevBlog"
+          path: "."
+          format: "HTML"
+          out: "dependency-check-report"
