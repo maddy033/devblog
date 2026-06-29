@@ -1,12 +1,11 @@
-FROM node:20-alpine3.18@sha256:a74f86ef4efc76bfd4a5b742bc4a3452a6bb3fa0dd308e153dd3afc5b1359adf
+FROM node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293
 
 WORKDIR /app
 
-# Install security updates only, avoid caching package manager
-RUN apk add --no-cache --update \
-    dumb-init \
-    && apk update \
-    && apk upgrade
+# Install security updates with pinned versions
+RUN apk add --no-cache \
+    dumb-init=1.2.5-r3 \
+    && apk upgrade --no-cache
 
 # Copy dependency files
 COPY package*.json ./
