@@ -25,5 +25,15 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
       - name: Docker Build 
-        runs: docker build -t ${{ vars.DOCKERHUB_USERNAME }}//devblog-app:latest .
+        runs: docker build -t ${{ vars.DOCKERHUB_USERNAME }}/devblog-app:latest .
         working-directory: ./devblog
+      
+      - name: Run Trivy vulnerability Scan
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ${{ vars.DOCKERHUB_USERNAME }}/devblog-app:latest
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH,MEDIUM'
