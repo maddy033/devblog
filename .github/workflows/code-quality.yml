@@ -1,0 +1,23 @@
+# Goal - I have to do SAST for my Code
+
+name: Code Quality
+
+on:
+  workflow_call:    # you can call this workflow before/after any other workflow
+
+jobs:
+    sast:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v3
+
+          - name: Initialize CodeQL
+            uses: github/codeql-action/init@v4
+            with:
+              languages: javascript-typescript
+
+          - name: Run CodeQL Analysis
+            uses: github/codeql-action/analyze@v2
+                
+  
