@@ -9,15 +9,26 @@ jobs:
     sast:
         runs-on: ubuntu-latest
         steps:
-          - name: Checkout code
-            uses: actions/checkout@v3
+          - name: Checkout Code
+        uses: actions/checkout@v4
 
-          - name: Initialize CodeQL
-            uses: github/codeql-action/init@v4
-            with:
-              languages: javascript-typescript
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
 
-          - name: Run CodeQL Analysis
-            uses: github/codeql-action/analyze@v2
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Linter (ESLint)
+        run: npm run lint
+
+      - name: Run Tests (Jest)
+        run: npm run test
+      
+      - name: GitHub CodeQL Scanning
+        uses: github/codeql-action/analyze@v3
+        if: always()
                 
   
