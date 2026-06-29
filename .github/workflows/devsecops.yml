@@ -1,14 +1,19 @@
 # Goal - To Run End to End DevSecOps CI Pipeline
 
+# Goal - To Run End to End DevSecOps CI Pipeline
+
 name: DevSecOps
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+
+permissions:
+  contents: read
+  actions: read
+  security-events: write
 
 jobs:
-
-    ## -----CI -----
-    # Code stage
-    code-quality:
-        uses: ./.github/workflows/code-quality.yml
+  code-quality:
+    uses: ./.github/workflows/code-quality.yml

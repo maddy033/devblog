@@ -1,4 +1,5 @@
 # Goal - I have to do SAST for my Code
+# Goal - I have to do SAST for my Code
 
 name: Code Quality
 
@@ -9,7 +10,7 @@ jobs:
   sast:
     name: CodeQL SAST Scan
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
