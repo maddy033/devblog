@@ -27,6 +27,12 @@ app.use(express.urlencoded({ extended: false }));
 // Middleware to parse and handle cookies in incoming requests
 app.use(cookieParser());
 
+// Make logged-in user details available to all EJS views
+app.use((req, res, next) => {
+  res.locals.user = req.cookies.user;
+  res.locals.role = req.cookies.role;
+  next();
+});
 app.use(express.static(path.join(__dirname, "public"))); //static path
 app.use(
   "/tinymce",

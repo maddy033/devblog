@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  devblog:
+    build: .
+    container_name: devblog-cont
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/devblog
+    
+    restart: always
+
+  mongodb:
+    image: mongo:7
+    container_name: mongodb
+    ports:  
+      - "27017:27017"
+         
+    volumes:
+      - mongodb_data:/data/mongodb
+      
+    restart: always
+
+volumes:
+  mongodb_data:      

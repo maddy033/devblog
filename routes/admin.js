@@ -185,6 +185,13 @@ router.post("/edit/:id", authenticate, async (req, res, next) => {
   }
 });
 /**
+ * Route handler for the public registration page.
+ */
+router.get("/register", (req, res, next) => {
+  res.render("register", { title: "Register" });
+});
+
+/**
  * Route handler for the login page.
  * Renders the admin login template.
  *
@@ -195,6 +202,33 @@ router.post("/edit/:id", authenticate, async (req, res, next) => {
  */
 router.get("/login", (req, res, next) => {
   res.render("admin/login", { title: "Admin Login" });
+});
+
+router.post("/register", async (req, res, next) => {
+  try {
+    const { name, email, password } = req.body;
+
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      return res.send("User already exists. Please login.");
+    }
+
+    const hashedPassword = CryptoJS.SHA256(password).toString();
+
+    const newUser = new User({
+      name,
+      email,
+      password: hashedPassword,
+      role: "reader", // Set the default role to "reader"
+    });
+
+    await newUser.save();
+
+    res.redirect("/admin/login");
+  } catch (e) {
+    next(e);
+  }
 });
 
 /**
@@ -231,8 +265,13 @@ router.post("/login", async (req, res, next) => {
     }
 
     res.cookie("user", user.name, { httpOnly: true });
+    res.cookie("role", user.role, { httpOnly: true });
 
-    res.redirect("/admin/");
+    if (user.role === "admin" || user.role === "author") {
+      return res.redirect("/admin/");
+    }
+
+    return res.redirect("/");
   } catch (e) {
     next(e);
   }
@@ -247,6 +286,7 @@ router.post("/login", async (req, res, next) => {
  */
 router.get("/logout", (req, res) => {
   res.clearCookie("user"); //clear coockie
+  res.clearCookie("role"); //clear coockie
   res.redirect("/admin/login"); //redirect to login page
 });
 
