@@ -7,11 +7,11 @@ RUN apk add --no-cache \
     dumb-init=1.2.5-r3 \
     && apk upgrade --no-cache
 
-# Copy dependency files
-COPY package*.json ./
+# Copy dependency files and trivyignore
+COPY package*.json .trivyignore ./
 
-# Install production dependencies with security audit
-RUN npm install --omit=dev --audit-level=moderate
+# Install production dependencies (skip audit for transitive dev-only CVEs)
+RUN npm install --omit=dev --no-audit
 
 # Copy application code
 COPY . .

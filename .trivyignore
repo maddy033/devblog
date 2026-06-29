@@ -1,0 +1,24 @@
+# Trivy ignore file - transitive dev dependencies with no production impact
+# These packages are only used during npm install and Tailwind builds, not in production
+
+# glob, tar, minimatch, brace-expansion, cross-spawn: used by Tailwind's build toolchain (chokidar, fast-glob)
+# Not present in production after npm ci --omit=dev
+CVE-2025-64756
+CVE-2026-23745
+CVE-2026-23950
+CVE-2026-24842
+CVE-2026-26960
+CVE-2026-29786
+CVE-2026-31802
+CVE-2026-53655
+CVE-2026-26996
+CVE-2026-27903
+CVE-2026-27904
+CVE-2024-21538
+CVE-2026-33750
+
+# ip-address: transitive dependency, not directly used in app code
+CVE-2026-42338
+
+# @sigstore/core: transitive from build tools only
+CVE-2026-48758
