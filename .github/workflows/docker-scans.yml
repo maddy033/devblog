@@ -1,0 +1,19 @@
+#Goal - Ensure the docker file and docker images are security Tested and scanned for vulnerabilities
+name: Docker Scans
+
+on:
+  workflow_call:
+
+jobs:
+  docker-file-lint:
+    name: Dockerfile Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+      
+      - name: Lint Dockerfile
+        uses: hadolint/hadolint-action@v2
+        with:
+          dockerfile: ./Dockerfile
