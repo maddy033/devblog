@@ -7,7 +7,7 @@ on:
 
 jobs:
   docker-push:
-    - name: Docker Push
+      name: Docker Push
       runs-on: ubuntu-latest
 
       steps:
