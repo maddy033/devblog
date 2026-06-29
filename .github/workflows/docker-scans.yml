@@ -26,8 +26,7 @@ jobs:
       
       - name: Docker Build 
         run: docker build -t ${{ vars.DOCKERHUB_USERNAME }}/devblog-app:latest .
-        working-directory: ./devblog
-      
+    
       - name: Run Trivy vulnerability Scan
         uses: aquasecurity/trivy-action@v0.36.0
         with:
@@ -37,3 +36,4 @@ jobs:
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH,MEDIUM'
+          
