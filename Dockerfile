@@ -11,7 +11,7 @@ RUN apk add --no-cache \
 COPY package*.json ./
 
 # Install production dependencies with security audit
-RUN npm ci --omit=dev --audit-level=moderate
+RUN npm install --omit=dev --audit-level=moderate
 
 # Copy application code
 COPY . .
