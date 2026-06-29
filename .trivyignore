@@ -22,3 +22,12 @@ CVE-2026-42338
 
 # @sigstore/core: transitive from build tools only
 CVE-2026-48758
+
+# Express 4.16.x legacy dependencies - low-impact ReDoS in regex parsing
+# Fixed in Express 5.x but requires major version upgrade
+# Impact: only triggered by malformed URL parameters in edge cases
+CVE-2024-45590
+CVE-2024-45296
+CVE-2024-52798
+CVE-2026-4867
+CVE-2025-15284
