@@ -25,7 +25,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
       - name: Docker Build 
-        runs: docker build -t ${{ vars.DOCKERHUB_USERNAME }}/devblog-app:latest .
+        run: docker build -t ${{ vars.DOCKERHUB_USERNAME }}/devblog-app:latest .
         working-directory: ./devblog
       
       - name: Run Trivy vulnerability Scan
