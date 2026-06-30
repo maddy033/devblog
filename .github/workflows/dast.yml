@@ -24,5 +24,6 @@ jobs:
           target: 'http://${{ secrets.EC2_HOST }}:3000'
           fail_action: false
           allow_issue_write: false
+          issue_title: ""
           cmd_options: '-a'
 
