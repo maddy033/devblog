@@ -12,17 +12,17 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@v4
 
-      - name: Wait for the application to be up and running
+      - name: Wait for application
         run: |
-          timeout 120s sh -c 'until curl -s http://localhost:3000; do sleep 5; done'
-        
-      - name: Run OWASP ZAP Scan 
+          timeout 180s sh -c 'until curl -s http://${{ secrets.EC2_HOST }}:3000 > /dev/null; do echo "waiting for app..."; sleep 5; done'
+
+      - name: Run OWASP ZAP Scan
         uses: zaproxy/action-baseline@v0.14.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          target: 'http://${{ secrets.EC2_HOST}}:3000'
+          target: 'http://${{ secrets.EC2_HOST }}:3000'
           fail_action: false
           allow_issue_write: false
 
